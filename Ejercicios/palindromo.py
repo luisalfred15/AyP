@@ -1,4 +1,4 @@
-entrada = input('Ingrese un numero positivo o palabra: ')
+entrada = input('Ingrese un numero positivo o palabra: ') # Se toma la entrada como string
 i = 0
 datos_iguales = True
 
@@ -19,3 +19,10 @@ else:
         print('El numero ingresado NO es un palindromo')
     else:
         print('La palabra ingresada NO es un palindromo')
+
+# Solucion alterna
+
+# if entrada == entrada[::-1]: # Voltea el string
+#     print(entrada, 'es un palindromo')
+# else:
+#     print(entrada, 'no es un palindromo')
