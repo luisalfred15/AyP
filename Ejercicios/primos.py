@@ -1,4 +1,10 @@
-print('Bienvenido a la calculadora de primos')
+numero = int(input('Ingrese el numero para averiguar si es primo: '))
+i = numero
 
-numero = int(input('Por favor, ingresa un numero para verificar'))
-aux = numero
+while i < numero:
+    division = numero / i
+    if division.is_integer() and (numero == i or i == 1):
+        print('El ', numero, 'es primo')
+    else:
+        print('El ', numero, 'NO es primo')
+    i += 1
