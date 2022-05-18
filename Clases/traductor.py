@@ -11,15 +11,15 @@ for i in range(len(list)):
 phrase = input('Please enter a phrase in Spanish to translate it using the words you wrote before \n ->')
 phrase_words = phrase.split(' ')
 
-# for j in range(len(phrase_words)):
-#     if j == 0:
-#         translated_word = dictionary.get(phrase_words[j].lower())
-#         print(translated_word.capitalize(), end = ' ')
-#     else:
-#         translated_word = dictionary.get(phrase_words[j].lower())
-#         print(translated_word, end = ' ')
+for j in range(len(phrase_words)):
+    if j == 0:
+        translated_word = dictionary.get(phrase_words[j].lower())
+        print(translated_word.capitalize(), end = ' ')
+    else:
+        translated_word = dictionary.get(phrase_words[j].lower())
+        print(translated_word, end = ' ')
 
-for phrase_word in phrase_words:
-    print(dictionary.get(phrase_word.lower(),phrase_word.lower()), end = ' ')
+# for phrase_word in phrase_words:
+#     print(dictionary.get(phrase_word.lower(),phrase_word.lower()), end = ' ')
 
 # Escribe;Write,Un;A,Programa;Program , Escribe un programa
