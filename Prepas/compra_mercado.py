@@ -31,16 +31,23 @@ while True:
         1: Agregar un cliente a la base de datos
         2: Eliminar un cliente de la base de datos
         3: Agregar un producto al almacen
-        4: Salir de la base de datos
+        4: Imprimir todas las facturas
+        5: Salir de la base de datos
         -> ''')
     
-    if opcion.isnumeric() and 1 <= int(opcion) <= 4:
+    if opcion.isnumeric() and 1 <= int(opcion) <= 5:
         if opcion == '1':
             total = 0
             productos_comprados = []
             nombre = input('Ingrese su nombre: ')
+            while not(nombre.isalpha()):
+                nombre = input('Ingrese un nombre valido: ')
             apellido = input('Ingrese su apellido: ')
+            while not(apellido.isalpha()):
+                apellido = input('Ingrese un apellido valido: ')
             cedula = input('Ingrese su cedula: ')
+            while not(cedula.isnumeric() and int(cedula) > 0):
+                nombre = input('Ingrese un numero de cedula valido: ')
             fecha = input('Ingrese la fecha de la compra en el formato dd/mm/aaaa: ')
             while True:
                 for key, value in productos.items():
@@ -61,9 +68,11 @@ while True:
                     break
             numero_comprador += 1
             facturas[int(numero_comprador)] = {
-                'name': nombre,
-                'last_name': apellido,
-                'id': cedula,
+                'client': {
+                    'name': nombre,
+                    'last_name': apellido,
+                    'id': cedula  
+                },
                 'date': fecha,
                 'bill': {
                     'date': fecha,
@@ -72,7 +81,8 @@ while True:
                 }
             }
         elif opcion == '2':
-            for key, value in facturas.items():
+            if len(facturas) != 0:
+                for key, value in facturas.items():
                     print(f'''{key} - {value['name']} {value['last_name']}
                                         Cedula: {value['id']}
                                         Fecha de la compra: {value['date']}
@@ -80,12 +90,37 @@ while True:
                                         - Fecha: {value['bill']['date']}
                                         - Productos: {value['bill']['products']}
                                         - Total: {value['bill']['total']}''')
-            eliminado = input('Seleccione el que desee eliminar de la base de datos: ')
-            while not(eliminado.isnumeric() and 1 <= int(eliminado) <= len(facturas)):
-                eliminado = input('Por favor, seleccione un cliente existente: ')
-            facturas.pop(int(eliminado))  
-        else:
+                eliminado = input('Seleccione el que desee eliminar de la base de datos: ')
+                while not(eliminado.isnumeric() and 1 <= int(eliminado) <= len(facturas)):
+                    eliminado = input('Por favor, seleccione un cliente existente: ')
+                facturas.pop(int(eliminado))
+            else:
+                print('No se pueden eliminar clientes: no hay clientes existentes')  
+        elif opcion == '3':
+            opcion_agregar = 'S'
+            while opcion_agregar == 'S':
+                producto_agregado = input('Por favor, introduzca el nombre del producto: ')
+                precio_agregado = input('Por favor, introduzca el precio del nuevo producto: ')
+                cantidad_agregado = input('Por favor, introduzca la cantidad del nuevo producto: ')
+                productos_almacen = len(productos) + 1
+                productos[productos_almacen] = {
+                    'name': producto_agregado,
+                    'amount': int(cantidad_agregado),
+                    'price': int(precio_agregado)
+                }
+                opcion_agregar = input('Desea agregar otro producto? \n S: Si \n N: No \n ->').upper()
+        elif opcion == '4':
             print(facturas)
+            for key, value in facturas.items():
+                print(f'''{key} - {value['client']['name']} {value['client']['last_name']}
+                                            Cedula: {value['client']['id']}
+                                            Fecha de la compra: {value['date']}
+                                            Factura:
+                                            - Fecha: {value['bill']['date']}
+                                            - Productos: {value['bill']['products']}
+                                            - Total: {value['bill']['total']}''')
+            break
+        else:
             break
     else:
         print('Por favor, ingrese una opcion valida')
