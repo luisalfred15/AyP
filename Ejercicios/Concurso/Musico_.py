@@ -12,4 +12,4 @@ class Musico(Participante):
                 var += self.instrumentos[index]
             else:
                 var += self.instrumentos[index] + ', '
-        return print(f'         Instrumentos: {var}')
+        return print(f'        Instrumentos: {var}')
