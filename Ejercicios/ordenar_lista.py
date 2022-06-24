@@ -7,20 +7,20 @@
 
 # Para indices negativos
 
-def ordenar_lista(lista, lista_ordenada, indice):
-    num_may = 0
-    for elemento in lista:
-        if elemento > num_may:
-            num_may = elemento
-    lista_ordenada.insert(indice, num_may)
-    lista.pop(lista.index(num_may))
-    if len(lista) != 0:
-        return ordenar_lista(lista, lista_ordenada, indice - 1)
-    else:
-        return lista_ordenada
+# def ordenar_lista(lista, lista_ordenada, indice):
+#     num_may = 0
+#     for elemento in lista:
+#         if elemento > num_may:
+#             num_may = elemento
+#     lista_ordenada.insert(indice, num_may)
+#     lista.pop(lista.index(num_may))
+#     if len(lista) != 0:
+#         return ordenar_lista(lista, lista_ordenada, indice - 1)
+#     else:
+#         return lista_ordenada
 
-lista_final = ordenar_lista([7, 1, 3, 5, 4, 0, 25], [], -1)
-print(lista_final)
+# lista_final = ordenar_lista([7, 1, 3, 5, 4, 0, 25], [], -1)
+# print(lista_final)
 
 # Para indices positivos
 
@@ -36,5 +36,8 @@ def ordenar_lista(lista, lista_ordenada, indice):
     else:
         return lista_ordenada
 
-lista_final = ordenar_lista([7, 1, 3, 5, 4, 0, 25], [], 0) # Nota: se puede omitir el argumento indice
-print(lista_final) # Imprime la lista ordenada ascendentemente. Para descendentemente, sustituir insert por apend en l32
+def main():
+    lista_final = ordenar_lista([7, 1, 3, 5, 4, 0, 25], [], 0) # Nota: se puede omitir el argumento indice
+    print(lista_final) # Imprime la lista ordenada ascendentemente. Para descendentemente, sustituir insert por apend en l32
+
+main()
