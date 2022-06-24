@@ -1,4 +1,7 @@
-teams = [{
+{
+	"teams":
+    [
+        {
 			"name": "Saman F.C.",
 			"stadium": {
 				"name": "Saman Arena",
@@ -197,3 +200,41 @@ teams = [{
 			]
 		}
 	],
+	"referees": ["Maria Pilar", "Rafael Matienzo", "Christian Guillen"],
+	"restaurant": [{
+			"name": "Doble Cheese Burger",
+			"price": 11.99,
+			"quantity": 10,
+			"type": "c",
+			"packing": false
+		},
+		{
+			"name": "Santa Teresa 1976",
+			"price": 20,
+			"quantity": 9,
+			"type": "b",
+			"alcoholic": true
+		},
+		{
+			"name": "12 Pack Pesis",
+			"price": 16,
+			"quantity": 3,
+			"type": "b",
+			"alcoholic": false
+		},
+		{
+			"name": "Doritos",
+			"packing": true,
+			"price": 1.5,
+			"quantity": 33,
+			"type": "c"
+		},
+		{
+			"name": "Hot Dog",
+			"price": 4.99,
+			"packing": false,
+			"quantity": 13,
+			"type": "c"
+		}
+	]
+}
