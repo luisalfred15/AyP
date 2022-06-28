@@ -1,1 +1,0 @@
-referees = ["Maria Pilar", "Rafael Matienzo", "Christian Guillen"]
