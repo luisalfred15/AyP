@@ -12,21 +12,20 @@ def get_json():
 
 # Para cargar los datos a archivos de texto
 
-def load_data(txt):
-    file = open(txt, 'rb')
-    if os.stat(txt).st_size != 0:
-        file.seek(0)
-        data = pickle.load(file)
-    file.close()
-    return data
+def load_data(txt_name, data):
+    write = open(txt_name, 'wb')
+    pickle.dump(data, write)
+    write.close()
 
-def load_empty_data(txt):
-    file = open(txt, 'rb')
-    try:
-        data = pickle.load(file)
-    except EOFError:
-        data = []
-    file.close()
+# Para leer los datos de los archivos de texto
+
+def read_data(txt_name, data):
+
+    lectura = open(txt_name, "rb")   
+    if os.stat(txt_name).st_size != 0:
+        data = pickle.load(lectura)    
+    lectura.close()
+
     return data
 
 # Comprobaciones
@@ -41,13 +40,13 @@ def comprobar_str(msg):
 def comprobar_opcion(msg, cantidad_opciones):
     opcion = input(msg)
     if opcion.isnumeric() and int(opcion) in range(1, cantidad_opciones + 1):
-        return opcion
+        return int(opcion)
     else:
         return comprobar_opcion('Error, seleccione una opcion que este dentro del rango: ', cantidad_opciones)
 
 def comprobar_num(msg):
     num = input(msg)
     if num.isnumeric() and 0 < int(num):
-        return num
+        return int(num)
     else:
         return comprobar_num('Error, ingrese un numero valido: ')
