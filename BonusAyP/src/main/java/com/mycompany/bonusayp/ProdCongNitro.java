@@ -8,13 +8,13 @@ package com.mycompany.bonusayp;
  *
  * @author luisa
  */
-public class ProdCongNitrogeno extends ProductoCongelado {
+public class ProdCongNitro extends ProductoCongelado {
 
     private String metodoCongelacion;
     private int tiempoExposicionN;
     
-    public ProdCongNitrogeno(String nombre, float precio, String fechaCaducidad, int numeroLote, String fechaEnvasado, String paisOrigen, float tempMante, String metodoCongelacion, int tiempoExposicionN){
-        super(nombre, precio, fechaCaducidad, numeroLote, fechaEnvasado, paisOrigen, tempMante);
+    public ProdCongNitro(String nombre, float precio, String fechaEnvasado, String fechaCaducidad, int numeroLote, String paisOrigen, float tempMante, String metodoCongelacion, int tiempoExposicionN){
+        super(nombre, precio, fechaEnvasado, fechaCaducidad, numeroLote, paisOrigen, tempMante);
         this.metodoCongelacion = metodoCongelacion;
         this.tiempoExposicionN = tiempoExposicionN;
     }
@@ -47,5 +47,8 @@ public class ProdCongNitrogeno extends ProductoCongelado {
         this.tiempoExposicionN = tiempoExposicionN;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Nombre: " + getNombre() + "\n Precio: " + getPrecio() + "\n Fecha de envasado: " + getFechaEnvasado() + "\n Fecha de caducidad: " + getFechaCaducidad() + "\n Numero de lote: " + getNumeroLote() + "\n Pais de origen: " + getPaisOrigen() + "\n Temp. de mantenimiento: " + getTempMante() + "\n Metodo de congelacion: " + getMetodoCongelacion() + "\n Tiempo de congelacion: " + getTiempoExposicionN() + "\n";
+    }
 }

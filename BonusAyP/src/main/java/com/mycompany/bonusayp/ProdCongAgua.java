@@ -12,8 +12,8 @@ public class ProdCongAgua extends ProductoCongelado {
 
     private float salinidadAgua;
     
-    public ProdCongAgua(String nombre, float precio, String fechaCaducidad, int numeroLote, String fechaEnvasado, String paisOrigen, float tempMante, float salinidadAgua) {
-        super(nombre, precio, fechaCaducidad, numeroLote, fechaEnvasado, paisOrigen, tempMante);
+    public ProdCongAgua(String nombre, float precio, String fechaEnvasado, String fechaCaducidad, int numeroLote, String paisOrigen, float tempMante, float salinidadAgua) {
+        super(nombre, precio, fechaEnvasado, fechaCaducidad, numeroLote, paisOrigen, tempMante);
         this.salinidadAgua = salinidadAgua;
     }
     
@@ -29,5 +29,10 @@ public class ProdCongAgua extends ProductoCongelado {
      */
     public void setSalinidadAgua(float salinidadAgua) {
         this.salinidadAgua = salinidadAgua;
+    }
+    
+    @Override
+    public String toString() {
+        return "Nombre: " + getNombre() + "\n Precio: " + getPrecio() + "\n Fecha de envasado: " + getFechaEnvasado() + "\n Fecha de caducidad: " + getFechaCaducidad() + "\n Numero de lote: " + getNumeroLote() + "\n Pais de origen: " + getPaisOrigen() + "\n Temp. de mantenimiento: " + getTempMante() + "\n Salinidad del agua: " + getSalinidadAgua() + "\n";
     }
 }

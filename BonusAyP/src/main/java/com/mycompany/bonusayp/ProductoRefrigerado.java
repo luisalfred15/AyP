@@ -10,11 +10,11 @@ package com.mycompany.bonusayp;
  */
 public class ProductoRefrigerado extends Producto {
     
-    private int codigoOrganismo;
+    private String codigoOrganismo;
     private float tempMante;
     
-    public ProductoRefrigerado (String nombre, float precio, String fechaCaducidad, int numeroLote, String fechaEnvasado, String paisOrigen, int codigoOrganismo, float tempMante){
-        super(nombre, precio, fechaCaducidad, numeroLote, fechaEnvasado, paisOrigen);
+    public ProductoRefrigerado (String nombre, float precio, String fechaEnvasado, String fechaCaducidad, int numeroLote, String paisOrigen, String codigoOrganismo, float tempMante){
+        super(nombre, precio, fechaEnvasado, fechaCaducidad, numeroLote, paisOrigen);
         this.codigoOrganismo = codigoOrganismo;
         this.tempMante = tempMante;
     }
@@ -22,14 +22,14 @@ public class ProductoRefrigerado extends Producto {
     /**
      * @return the codigoOrganismo
      */
-    public int getCodigoOrganismo() {
+    public String getCodigoOrganismo() {
         return codigoOrganismo;
     }
 
     /**
      * @param codigoOrganismo the codigoOrganismo to set
      */
-    public void setCodigoOrganismo(int codigoOrganismo) {
+    public void setCodigoOrganismo(String codigoOrganismo) {
         this.codigoOrganismo = codigoOrganismo;
     }
 
@@ -45,5 +45,10 @@ public class ProductoRefrigerado extends Producto {
      */
     public void setTempMante(int tempMante) {
         this.tempMante = tempMante;
+    }
+    
+    @Override
+    public String toString() {
+        return "Nombre: " + getNombre() + "\n Precio: " + getPrecio() + "\n Fecha de envasado: " + getFechaEnvasado() + "\n Fecha de caducidad: " + getFechaCaducidad() + "\n Numero de lote: " + getNumeroLote() + "\n Pais de origen: " + getPaisOrigen() + "\n Codigo de organismo: " + getCodigoOrganismo() + "\n Temp. de mantenimiento: " + getTempMante() + "\n";
     }
 }

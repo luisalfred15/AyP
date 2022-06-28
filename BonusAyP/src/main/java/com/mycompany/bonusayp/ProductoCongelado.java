@@ -12,8 +12,8 @@ public abstract class ProductoCongelado extends Producto {
 
     private float tempMante;
     
-    public ProductoCongelado(String nombre, float precio, String fechaCaducidad, int numeroLote, String fechaEnvasado, String paisOrigen, float tempMante) {
-        super(nombre, precio, fechaCaducidad, numeroLote, fechaEnvasado, paisOrigen);
+    public ProductoCongelado(String nombre, float precio, String fechaEnvasado, String fechaCaducidad, int numeroLote, String paisOrigen, float tempMante) {
+        super(nombre, precio, fechaEnvasado, fechaCaducidad, numeroLote, paisOrigen);
         this.tempMante = tempMante;
     }
    

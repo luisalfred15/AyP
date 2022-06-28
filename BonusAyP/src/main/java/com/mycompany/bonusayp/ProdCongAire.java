@@ -17,8 +17,8 @@ public class ProdCongAire extends ProductoCongelado {
     private float porcentajeC;
     private float porcentajeH2O;
     
-    public ProdCongAire (String nombre, float precio, String fechaCaducidad, int numeroLote, String fechaEnvasado, String paisOrigen, int codigoOrganismo, int tempMante, float porcentajeN, float porcentajeO, float porcentajeC, float porcentajeH2O) {
-        super(nombre, precio, fechaCaducidad, numeroLote, fechaEnvasado, paisOrigen, tempMante);
+    public ProdCongAire (String nombre, float precio, String fechaEnvasado, String fechaCaducidad, int numeroLote, String paisOrigen, float tempMante, float porcentajeN, float porcentajeO, float porcentajeC, float porcentajeH2O) {
+        super(nombre, precio, fechaEnvasado, fechaCaducidad, numeroLote, paisOrigen, tempMante);
         this.porcentajeN = porcentajeN;
         this.porcentajeO = porcentajeO;
         this.porcentajeN = porcentajeN;
@@ -81,5 +81,9 @@ public class ProdCongAire extends ProductoCongelado {
         this.porcentajeH2O = porcentajeH2O;
     }
     
+    @Override
+    public String toString() {
+        return "Nombre: " + getNombre() + "\n Precio: " + getPrecio() + "\n Fecha de envasado: " + getFechaEnvasado() + "\n Fecha de caducidad: " + getFechaCaducidad() + "\n Numero de lote: " + getNumeroLote() + "\n Pais de origen: " + getPaisOrigen() + "\n Temp. de mantenimiento: " + getTempMante() + "\n Porcentaje de N: " + getPorcentajeN() + "\n Porcentaje de O: " + getPorcentajeO() + "\n Porcentaje de C: " + getPorcentajeC() + "\n Porcentaje de H2O: " + getPorcentajeH2O() + "\n";
+    }
     
 }

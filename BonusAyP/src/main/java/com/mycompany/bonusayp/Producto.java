@@ -17,12 +17,12 @@ public abstract class Producto {
     private String fechaEnvasado;
     private String paisOrigen;
     
-    public Producto (String nombre, float precio, String fechaCaducidad, int numeroLote, String fechaEnvasado, String paisOrigen) {
+    public Producto (String nombre, float precio, String fechaEnvasado, String fechaCaducidad, int numeroLote, String paisOrigen) {
         this.nombre = nombre;
         this.precio = precio;
+        this.fechaEnvasado = fechaEnvasado;
         this.fechaCaducidad = fechaCaducidad;
         this.numeroLote = numeroLote;
-        this.fechaEnvasado = fechaEnvasado;
         this.paisOrigen = paisOrigen;
     }
 

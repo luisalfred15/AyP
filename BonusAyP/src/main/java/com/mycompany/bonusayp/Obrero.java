@@ -9,19 +9,20 @@ package com.mycompany.bonusayp;
  * @author luisa
  */
 public class Obrero implements Empleado {
-    
+
     @Override
     public void supervisarVentas() {
-        
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     @Override
     public void traerProductos() {
-        
+        System.out.println("*** Todo marcha en orden en la planta! ***");
+    }
+
+    @Override
+    public void verificarRentabilidad() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    @Override
-    public void verificarRentabilidad(){
-        
-    }
 }
