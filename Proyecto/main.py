@@ -28,20 +28,28 @@ def main():
 
         if option == 1:
 
+            teams = read_data('Teams_DB.txt', [])
             show_teams(teams)
             
         elif option == 2:
+            teams = read_data('Teams_DB.txt', [])
+            stadiums = read_data('Stadiums_DB.txt', [])
+            referees = read_data('Referees_DB.txt', [])
             games = create_game(teams, stadiums, referees)
             load_data('Games.txt', games)
 
-
-
         elif option == 3:
-            status = change_status_game(games)
+            
+            games = read_data('Games.txt', [])
+            change_status_game(games)
+            load_data('Games.txt', games)
+        
+        elif option == 4:
 
+            games = read_data('Games.txt', [])
+            register_client(games)
+            
 
-
-            pass
         else:
             break
             

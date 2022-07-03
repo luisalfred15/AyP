@@ -1,6 +1,11 @@
 from functions import *
 import random
 from Game_ import *
+from GeneralClient_ import *
+from VIPClient_ import *
+import time
+
+####### Crear partidos y abrir la venta #######
 
 def get_referees(db):
     referees = []
@@ -43,24 +48,50 @@ def select_referee(referees):
     print(f'El arbitro del partido sera {referee_selected}')
     return referee_selected
 
+####### Cambiar el estatus del partido ########
+
+def print_games(games):
+    for game in games:
+        print(f'''ID: {games.index(game) + 1} {game.team1.name} vs. {game.team2.name}
+                        Estadio: {game.stadium.name}
+                        Arbitro: {game.referee}''')
+                        
+def change_status_game(games):
+    print_games(games)
+    game_selected = comprobar_opcion('Seleccione el partido al que desea habilitar la venta de entradas: ', len(games))
+    games[game_selected - 1].status = True
+
+##### Tomar datos del cliente #####
+
+def register_client(games):
+    name = comprobar_str('Introduzca el nombre del cliente: ')
+    id = comprobar_num('Introduzca la cedula del cliente: ')
+    age = comprobar_num('Introduzca la edad del cliente: ')
+    print_games(games)
+    id_game_selected = comprobar_opcion('Selecciona el partido para comprar la entrada: ', len(games))
+    selected_game = games[id_game_selected - 1]
+    type_client = comprobar_opcion('''Seleccione el tipo de entrada que desea:
+    1. General
+    2. VIP
+    -> ''', 2)
+    if type_client == 1:
+        selected_game.stadium.print_general_seats()
+    else:
+        selected_game.stadium.print_vip_seats()
+
+
+####### Crear el resulado del partido ########
+
 def generate_result(team1, team2):
     points1 = 0
     points2 = 0
-    ref_num = str(random.randint(0, 10000))
-    if ref_num[-1] == '1':
-        points1 += 1
-    elif ref_num[-1] == '2':
-        points2 += 1
+    counter = 0
+    while counter < 100:
+        ref_num = str(random.randint(0, 10000))
+        counter += 1
+        if ref_num[-1] == '1':
+            points1 += 1
+        elif ref_num[-1] == '2':
+            points2 += 1
     result = f'{team1.name}: {points1} | {team2.name}: {points2}'
     return result
-
-def change_status_game(games):
-    for game in games:
-        print(f'''ID: {games.index(game) + 1} {game.team1} vs. {game.team2}
-                        Estadio: {game.stadium}
-                        Arbitro: {game.referee}''')
-    game_selected = comprobar_opcion('Seleccione el partido al que desea habilitar la venta de entradas: ', len(games))
-    games[game_selected - 1].status = True
-    game_status = games[game_selected - 1].status
-    return game_status
-

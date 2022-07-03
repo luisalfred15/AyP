@@ -21,10 +21,10 @@ def load_data(txt_name, data):
 
 def read_data(txt_name, data):
 
-    lectura = open(txt_name, "rb")   
+    read = open(txt_name, "rb")   
     if os.stat(txt_name).st_size != 0:
-        data = pickle.load(lectura)    
-    lectura.close()
+        data = pickle.load(read)    
+    read.close()
 
     return data
 

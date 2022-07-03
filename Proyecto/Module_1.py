@@ -1,3 +1,4 @@
+from re import M
 from functions import *
 from Team_ import Team
 from Player_ import Player
@@ -15,6 +16,44 @@ def create_objects_players(db):
                     players.append(new_player)
     return players
 
+def generate_seatmap_general(db):
+	m = db[0]
+	n = db[1]
+	abcdf = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+	matriz = ['A'] * m
+	for i in range (m):
+		matriz[i] = [f'{abcdf[i]}'] * n
+	for j in range(m):
+		a = matriz[j]
+		for i in range(n):
+			a[i] = a[i]+str(i)
+	return matriz
+
+def generate_seatmap_vip(db):
+	m = db[0]
+	n = db[1]
+	abcdf = ['AV', 'BV', 'CV', 'DV', 'EV', 'FV', 'GV', 'HV', 'IV', 'JV', 'KV', 'LV', 'MV', 'NV', 'OV', 'PV', 'QV', 'RV', 'SV', 'TV', 'UV', 'VV', 'WV', 'XV', 'YV', 'ZV']
+	matrix = ['V'] * m
+	for i in range (m):
+		matrix[i] = [f'{abcdf[i]}'] * n
+	for j in range(m):
+		a = matrix[j]
+		for i in range(n):
+			a[i] = a[i]+str(i)
+	return matrix
+
+def seats_quantity_general(db):
+	m = db[0]
+	n = db[1]
+	quantity_general = m * n
+	return quantity_general
+
+def seats_quantity_vip(db):
+	m = db[0]
+	n = db[1]
+	quantity_vip = m * n
+	return quantity_vip
+
 # Crea los objetos de cada estadio y los añade a una lista
 
 def create_objects_stadiums(db):
@@ -22,7 +61,7 @@ def create_objects_stadiums(db):
     for team in db['teams']:
         for key, value in team.items():
             if key == 'stadium':
-                new_stadium = Stadium(value.get('name'), value['map']['general'], value['map']['vip'])
+                new_stadium = Stadium(value.get('name'), generate_seatmap_general(value['map']['general']), generate_seatmap_vip(value['map']['vip']))
                 stadiums.append(new_stadium)
     return stadiums
 
@@ -51,9 +90,9 @@ def show_teams(list_teams):
     search(list_teams, option_teams)
     
 def search(list_teams, option_teams):
-    if option_teams == '1':
+    if option_teams == 1:
         print_by_team(list_teams)
-    elif option_teams == '2':
+    elif option_teams == 2:
         print_by_player(list_teams)
     else:
         print_by_stadium(list_teams)
@@ -67,7 +106,7 @@ def print_by_team(list_teams):
                 team_found = True
                 team_to_print = team
         if team_found:
-            print_team(team_to_print)
+            team_to_print.print_team()
             break
         else:
             name = comprobar_str('Error, no se encontro el equipo. Ingrese el equipo que desea buscar: ')
@@ -82,7 +121,7 @@ def print_by_player(list_teams):
                     player_found = True
                     team_to_print = team
         if player_found:
-            print_team(team_to_print)
+            team_to_print.print_team()
             break
         else:
             name = comprobar_str('Error, no se encontro el jugador. Ingrese el jugador que desea buscar: ')
@@ -96,16 +135,7 @@ def print_by_stadium(list_teams):
                 stadium_found = True
                 team_to_print = team
         if stadium_found:
-            print_team(team_to_print)
+            team_to_print.print_team()
             break
         else:
             name = comprobar_str('Error, no se encontro el estadio. Ingrese el estadio que desea buscar: ')
-
-def print_team(team):
-    print(f'''*** {team.name} ***''')
-    print(f'Estadio {team.stadium.name}')
-    print('*** POSICIONES ***')
-    for player in team.lineup:
-        print(f'''Nombre: {player.name}
-        Posicion: {player.position}
-        Numero: {player.number}''')

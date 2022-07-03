@@ -6,3 +6,4 @@ class Game:
         self.referee = referee
         self.status = False
         self.result = ''
+        self.audience = []
