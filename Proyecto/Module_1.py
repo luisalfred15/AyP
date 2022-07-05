@@ -1,4 +1,3 @@
-from re import M
 from functions import *
 from Team_ import Team
 from Player_ import Player

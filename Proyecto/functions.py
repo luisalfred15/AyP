@@ -28,6 +28,12 @@ def read_data(txt_name, data):
 
     return data
 
+def restart_everything():
+    games = []
+    invoices = []
+    load_data('Games.txt', games)
+    load_data('Invoices.txt', invoices)
+
 # Comprobaciones
 
 def comprobar_str(msg):

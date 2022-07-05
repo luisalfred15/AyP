@@ -1,9 +1,11 @@
+from Invoice_ import Invoice
+from Module_4 import calculate_total
 from functions import *
 import random
 from Game_ import *
 from GeneralClient_ import *
 from VIPClient_ import *
-import time
+from Invoice_ import Invoice
 
 ####### Crear partidos y abrir la venta #######
 
@@ -13,8 +15,7 @@ def get_referees(db):
         referees.append(referee)
     return referees
 
-def create_game(teams, stadiums, referees):
-    games = []
+def create_game(teams, stadiums, referees, games = []):
     team1, team2 = select_teams(teams)
     stadium = select_stadium(stadiums)
     referee = select_referee(referees)
@@ -49,49 +50,116 @@ def select_referee(referees):
     return referee_selected
 
 ####### Cambiar el estatus del partido ########
-
-def print_games(games):
-    for game in games:
-        print(f'''ID: {games.index(game) + 1} {game.team1.name} vs. {game.team2.name}
-                        Estadio: {game.stadium.name}
-                        Arbitro: {game.referee}''')
                         
 def change_status_game(games):
-    print_games(games)
-    game_selected = comprobar_opcion('Seleccione el partido al que desea habilitar la venta de entradas: ', len(games))
-    games[game_selected - 1].status = True
-
-##### Tomar datos del cliente #####
-
-def register_client(games):
-    name = comprobar_str('Introduzca el nombre del cliente: ')
-    id = comprobar_num('Introduzca la cedula del cliente: ')
-    age = comprobar_num('Introduzca la edad del cliente: ')
-    print_games(games)
-    id_game_selected = comprobar_opcion('Selecciona el partido para comprar la entrada: ', len(games))
-    selected_game = games[id_game_selected - 1]
-    type_client = comprobar_opcion('''Seleccione el tipo de entrada que desea:
-    1. General
-    2. VIP
-    -> ''', 2)
-    if type_client == 1:
-        selected_game.stadium.print_general_seats()
+    counter = 0
+    for game in games:
+        if game.status == False:    
+            print(f'ID: {games.index(game) + 1}')
+            game.print_game()
+        else:
+            counter += 1
+    if counter != len(games):
+        game_selected = comprobar_opcion('Seleccione el partido al que desea habilitar la venta de entradas: ', len(games))
+        games[game_selected - 1].status = True
     else:
-        selected_game.stadium.print_vip_seats()
+        print('No se puede cambiar el estatus de algun juego ya que no hay ninguno creado o todos estan cerrados')
 
+def verify_games_opened(games):
+    games_not_opened = 0
+    everything_closed = False
+    for game in games:
+        if game.status == False:
+            games_not_opened += 1
+    if games_not_opened == len(games):
+        everything_closed = True
+    return everything_closed
+
+def close_game(games):
+    for game in games:
+        if game.status == True and game.results == '':    
+            game.print_game()
+    id_game_selected = comprobar_opcion('Seleccione el partido al que desea cerrar la venta de entradas: ', len(games))
+    game_selected = games[id_game_selected - 1]
+    game_selected.status = False
 
 ####### Crear el resulado del partido ########
 
-def generate_result(team1, team2):
+def generate_result(team1, team2, games):
     points1 = 0
     points2 = 0
     counter = 0
+    for game in games:
+        if game.status == True and game.results == '':    
+            game.print_game()
+    id_game_selected = comprobar_opcion('Seleccione el partido al que desea cerrar la venta de entradas: ', len(games))
+    game_selected = games[id_game_selected - 1]
     while counter < 100:
         ref_num = str(random.randint(0, 10000))
-        counter += 1
         if ref_num[-1] == '1':
             points1 += 1
         elif ref_num[-1] == '2':
             points2 += 1
+        counter += 1
     result = f'{team1.name}: {points1} | {team2.name}: {points2}'
-    return result
+    game_selected.result = result
+    
+def register_client_and_invoice(games, clients, invoices):
+    name = comprobar_str('Introduzca el nombre del cliente: ')
+    id = comprobar_num('Introduzca la cedula del cliente: ')
+    age = comprobar_num('Introduzca la edad del cliente: ')
+    for game in games:
+        print(f'ID: {games.index(game) + 1}')
+        game.print_game()
+    id_selected_game = comprobar_opcion('Introduzca el ID del juego que desea ver: ', len(games))
+    selected_game = games[id_selected_game]
+    selection_ticket = comprobar_opcion('''Seleccione que tipo de entrada desea comprar:
+    1. General
+    2. VIP
+    -> ''', 2)
+    if selection_ticket == 1:
+        selection_ticket = 'General'
+        selected_seats = selected_game.select_general_seats()
+        new_invoice = generate_invoice(selected_seats, id, selection_ticket)
+        new_client = GeneralClient(name, id, age, selected_game, selected_seats, new_invoice)
+        clients.append(new_client)
+        invoices.append(new_invoice)
+        return clients, invoices
+    else:
+        selection_ticket = 'VIP'
+        selected_seats = selected_game.select_vip_seats()
+        new_invoice = generate_invoice(selected_seats, id, selection_ticket)
+        new_client = VIPClient(name, id, age, selected_game, selected_seats, new_invoice)
+        clients.append(new_client)
+        invoices.append(new_invoice)
+        return clients, invoices
+
+def generate_invoice(selected_seats, id, selection_ticket):
+    cost = calculate_cost(selected_seats, selection_ticket)
+    discount = calculate_discount(id)
+    tax = calculate_tax(cost, discount)
+    total = calculate_total(cost, tax)
+    new_invoice = Invoice(selected_seats, selection_ticket, cost, discount, tax, total)
+    return new_invoice
+
+def calculate_cost(seats, selection_ticket):
+    cost = 0
+    if selection_ticket == 'General':
+        cost = 15 * len(seats)
+    else:
+        cost = 45 * len(seats)
+    return cost
+
+def calculate_discount(id):
+    discount = 0
+    vampire_id = False
+    if vampire_id:
+        discount = 0.5
+    return discount
+
+def calculate_tax(cost, discount):
+    cost_with_discount = cost - discount
+    return cost_with_discount * 0.16
+
+def calculate_total(cost_with_discount, tax):
+    return cost_with_discount + tax
