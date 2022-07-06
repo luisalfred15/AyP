@@ -16,17 +16,17 @@ class Drink(Product):
             self.print_is_alcoholic()
     
     def print_name(self):
-        print(f'Nombre: {self.name}')
+        print(f'        ********* Nombre: {self.name} *********')
     
     def print_quantity(self):
-        print(f'Cantidad: {self.quantity}')
+        print(f'        Cantidad: {self.quantity}')
     
     def print_price(self):
-        print(f'Precio: {self.price}')
+        print(f'        Precio: {self.price}')
     
     def print_is_alcoholic(self):
         if self.is_alcoholic == True:
             x = 'Si'
         else:
             x = 'No'
-        print(f'Alcoholica: {x}')
+        print(f'        Alcoholica: {x}')

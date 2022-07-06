@@ -19,13 +19,22 @@ def load_data(txt_name, data):
 
 # Para leer los datos de los archivos de texto
 
-def read_data(txt_name, data):
+def download_data(txt_name, data):
 
     read = open(txt_name, "rb")   
     if os.stat(txt_name).st_size != 0:
         data = pickle.load(read)    
     read.close()
 
+    return data
+
+def create_txt(txt):
+    file = open(txt, 'rb')
+    try:
+        data = pickle.load(file)
+    except EOFError:
+        data = []
+    file.close()
     return data
 
 def restart_everything():

@@ -31,6 +31,8 @@ def search(products, option_products):
     else:
         print_by_range(products)
 
+# Filtro por nombre del producto
+
 def print_by_name(products):
     product_found = False
     name = comprobar_str('Ingrese el producto que desea buscar: ')
@@ -44,6 +46,8 @@ def print_by_name(products):
             break
         else:
             name = comprobar_str('Error, no se encontro el producto. Ingrese el producto que desea buscar: ')
+
+# Filtro por tipo de producto
 
 def print_by_type(products):
     type_product = comprobar_str('''Ingrese el tipo de producto que desea buscar: 
@@ -62,6 +66,8 @@ def print_by_type(products):
         else:
             break
 
+# Filtro por rango de precio
+
 def print_by_range(products):
     low_bound = comprobar_num('Ingrese la cota inferior del rango: ')
     up_bound = comprobar_num('Ingrese la cota superior del rango: ')
@@ -77,3 +83,10 @@ def print_by_range(products):
             up_bound = comprobar_num('Ingrese la cota superior del rango: ')
         else:
             break
+
+def restart_data_3(db):
+    load_data('Products_DB.txt', [])
+    load_data('Invoices.txt', [])
+    
+    products = create_objects_products(db)
+    load_data('Products_DB.txt', products)

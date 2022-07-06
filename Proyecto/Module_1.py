@@ -11,9 +11,11 @@ def create_objects_players(db):
         for key, value in team.items():
             if key == 'lineup':
                 for player in value:
-                    new_player = Player(player.get('name'), team.get('name'), player.get('number'), player.get('position'))
+                    new_player = Player(player.get('name'), team.get('name'), player.get('number'), player.get('position'), 0)
                     players.append(new_player)
     return players
+
+# Genera el mapa de asientos general
 
 def generate_seatmap_general(db):
 	m = db[0]
@@ -28,6 +30,8 @@ def generate_seatmap_general(db):
 			a[i] = a[i]+str(i)
 	return matriz
 
+# Genera el mapa de asientos VIP
+
 def generate_seatmap_vip(db):
 	m = db[0]
 	n = db[1]
@@ -40,18 +44,6 @@ def generate_seatmap_vip(db):
 		for i in range(n):
 			a[i] = a[i]+str(i)
 	return matrix
-
-def seats_quantity_general(db):
-	m = db[0]
-	n = db[1]
-	quantity_general = m * n
-	return quantity_general
-
-def seats_quantity_vip(db):
-	m = db[0]
-	n = db[1]
-	quantity_vip = m * n
-	return quantity_vip
 
 # Crea los objetos de cada estadio y los añade a una lista
 
@@ -96,6 +88,8 @@ def search(list_teams, option_teams):
     else:
         print_by_stadium(list_teams)
 
+# Filtro de nombre con ciclo
+
 def print_by_team(list_teams):
     team_found = False
     name = comprobar_str('Ingrese el equipo que desea buscar: ')
@@ -109,6 +103,8 @@ def print_by_team(list_teams):
             break
         else:
             name = comprobar_str('Error, no se encontro el equipo. Ingrese el equipo que desea buscar: ')
+
+# Filtro de nombre de jugador con ciclo
 
 def print_by_player(list_teams):
     player_found = False
@@ -125,6 +121,8 @@ def print_by_player(list_teams):
         else:
             name = comprobar_str('Error, no se encontro el jugador. Ingrese el jugador que desea buscar: ')
 
+# Filtro de nombre de estadio con ciclo
+
 def print_by_stadium(list_teams):
     stadium_found = False
     name = comprobar_str('Ingrese el estadio que desea buscar: ')
@@ -138,3 +136,18 @@ def print_by_stadium(list_teams):
             break
         else:
             name = comprobar_str('Error, no se encontro el estadio. Ingrese el estadio que desea buscar: ')
+
+# Reinicia los datos de este modulo
+
+def restart_data_1(db):
+
+    load_data('Players_DB.txt', [])
+    load_data('Stadiums_DB.txt', [])
+    load_data('Teams_DB.txt', [])
+    
+    players = create_objects_players(db)
+    load_data('Players_DB.txt', players)
+    stadiums = create_objects_stadiums(db)
+    load_data('Stadiums_DB.txt', stadiums)
+    teams = create_objects_teams(db, players, stadiums)
+    load_data('Teams_DB.txt', teams)

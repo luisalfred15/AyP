@@ -10,13 +10,14 @@ class Team:
         self.print_lineup()
     
     def print_name(self):
-        print(f'''*** {self.name} ***''')
+        print(f'''              ***** {self.name} *****''')
     
     def print_stadium(self):
-        print(f'Estadio: {self.stadium.name}')
+        print(f'                Estadio: {self.stadium.name}')
     
     def print_lineup(self):
         for player in self.lineup:
-            print(f'''Nombre: {player.name}
+            print('         ***********************')
+            print(f'''           Nombre: {player.name}
             Posicion: {player.position}
             Numero: {player.number}''')
